@@ -1,42 +1,38 @@
 token = 12314
-count_condition = 2
+
+def make_conditions(request, response):
+    condition = f'''
+    if message.text.upper() == '{request}'.upper():
+        bot.send_message(message.from_user.id, '{response}')'''
+    return condition
+
+def text_response(conditions):
+    body = f"""
+@bot.message_handler(content_types=['text'])
+def text_response(message):
+    {conditions}
+
+    """
+    return body
+
+
 start = f'''import telebot
 
 
 token = '{token}'
 bot = telebot.TeleBot(token=token)
 
-
-'''
-mess = ['привет', 'какое расписание?']
-response = ['Привет. Чем я могу помочь?', 'ПН-ПТ с 8:00 до 20:00']
-
-
-def make_condition(message, response):
-    condition = f"""if message.text == '{message}'.upper():
-        bot.send_message(message.from_user.id, '{response}')
-    """
-    return condition
-
-condition = ''
-for i in range(count_condition):
-    me = mess[i]
-    res = response[i]
-    condition += make_condition(me, res)
-
-body = f"""@bot.message_handler(content_types=['text'])
-def text_response(message):
-    {condition}
-    
-"""
-
-
-end = '''bot.polling(none_stop=True, interval=0)
 '''
 
+end = '''
+bot.polling(none_stop=True, interval=0)
+'''
 
 with open('main.py', 'a+') as f:
     f.write(start)
-    f.write(body)
+    text_res = [('hello', 'hello, my friend'),('hi', 'hi, bitch')]
+    conditions = ''
+    for cond in text_res:
+        conditions += make_conditions(*cond)
+    f.write(text_response(conditions))
     f.write(end)
-
