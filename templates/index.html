@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        let index = 0;
+        function add(){
+            index += 1;
+            var h3Elem = document.getElementById("body_construct");
+            var elem = document.createElement("div");
+            elem.id = 'block' + index;
+            let id = 'block' + index
+            elem.innerHTML = '<br><input type="text" name="request" value="request"><br><input type="text" \
+                             name="response" value="response">';
+            h3Elem.insertAdjacentElement("beforeBegin", elem);
+        }
+
+    </script>
+</head>
+<body>
+    <button onclick="add()">Создать новый блок</button>
+    <h1></h1>
+    <div id="body_construct"></div>
+</body>
+</html>
