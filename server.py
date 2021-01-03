@@ -20,8 +20,19 @@ from models import *
 base.metadata.create_all(bind=engine)
 
 
+@app.route('/', methods=['GET', 'POST'])
+def main():
+    return render_template('index.html')
+
+
+@app.route('/', methods=['GET', 'POST'])
+def get_content():
+    print(request.form.get('request'))
+
 
 app.run()
+
+
 
 
 
