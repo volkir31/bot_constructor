@@ -54,6 +54,7 @@ class Constructor(Tk):
         super().__init__()
         self.geometry('500x600')
         self.title('Bot Constructor')
+        self.iconbitmap('lego.ico')
 
         # filename
         file_name = StringVar()
