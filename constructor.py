@@ -83,7 +83,6 @@ class Constructor(Tk):
         print(f'Responses:{self.res}\n Requests{self.req}')
 
 
-
 if __name__ == '__main__':
     window = Constructor()
     # Button(window, text="Add new block", command=window.add_new_block).pack()
