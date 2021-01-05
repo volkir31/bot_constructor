@@ -1,0 +1,7 @@
+token 12345
+start
+start_message Hello, thanks for starting me
+make_button ""Кнопка 1"" ""Ответ 1""
+make_button ""Не жми!"" ""Ну просил же""
+text_response ""1 + 0"" ""10""
+end
