@@ -5,18 +5,6 @@ def make_conditions(response, request):
     return condition
 
 
-# def text_response(text_res):
-#     conditions = ''
-#     for cond in text_res:
-#         conditions += make_conditions(*cond)
-#
-#     body = f"""
-# @bot.message_handler(content_types=['text'])
-# def text_response(message):
-#     {conditions}
-#
-#     """
-#     return body
 def make_button(name, message):
     names = ''
     button = f'''   
@@ -99,13 +87,6 @@ res = []
 req = []
 
 
-# with open('main.py', 'a+') as f:
-#     f.write(start)
-#     text_res = [('hello', 'hello, my friend'), ('hi', 'hi, bitch')]
-#     conditions = ''
-#     for cond in text_res:
-#         conditions += make_conditions(*cond)
-#     f.write(text_response(conditions))
 def bot_creating(res, req, token, file_name):
     with open('Instructions Example.txt', 'r') as instructions:
         with open(file_name+'.py', 'w+') as f:
@@ -119,13 +100,11 @@ def bot_creating(res, req, token, file_name):
                     f.write(get_start(token))
                     f.write(onstart)
                 elif line.split()[0] == 'make_button':
-                    # buttons.append((line.split('\"\"')[1], line.split('\"\"')[3]))
                     b_name.append(line.split('\"\"')[1])
                     b_msg.append(line.split('\"\"')[3])
                 elif line.split()[0] == 'start_message':
                     on_start_msg = line.strip().split('start_message')[1]
                 elif line.split()[0] == 'text_response':
-                    # text_res.append((line.split('\"\"')[1], line.split('\"\"')[3]))
                     req.append(line.split('\"\"')[1])
                     res.append(line.split('\"\"')[3])
                 elif line.split()[0] == 'end':
@@ -138,10 +117,4 @@ def bot_creating(res, req, token, file_name):
 
 
 bot_creating(res, req)
-# with open('main.py', 'w+') as f:
-# f.write(start)
-# f.write(start_message('Спасибо что запустил меня бро'))
-#  text_res = [('hello', 'hello, my friend'), ('hi', 'hi, bitch'), ('1+1', '2')]
 
-#  f.write(text_response(text_res))
-#  f.write(end)
