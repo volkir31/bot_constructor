@@ -1,6 +1,3 @@
-token = "925344997:AAGWfYn_GkgWBd1ViHdp6KcYmhG51yKSjJQ"
-
-
 def make_conditions(response, request):
     condition = f'''
     if message.text.upper() == '{request}'.upper():
@@ -24,9 +21,10 @@ def make_conditions(response, request):
 def text_response(res, req):
     conditions = ''
     for i in range(len(req)):
-        conditions += make_conditions(res[i], req[i])
+        conditions += make_conditions(res[i].strip(), req[i].strip())
 
     body = f"""
+
 @bot.message_handler(content_types=['text'])
 def text_response(message):
     {conditions}
@@ -44,14 +42,15 @@ def start_message(message):
     return greetings
 
 
-start = f'''# -*- coding: cp1251 -*-
-
-import telebot
-
+def get_start(token):
+    start = f'''import telebot
+    
 token = '{token}'
 bot = telebot.TeleBot(token=token)
-
+    
 '''
+    return start
+
 
 end = '''
 bot.polling(none_stop=True, interval=0)
@@ -66,14 +65,14 @@ text_res = []
 #     for cond in text_res:
 #         conditions += make_conditions(*cond)
 #     f.write(text_response(conditions))
-def bot_creating(res, req):
+def bot_creating(res, req, token):
     with open('Instructions Example.txt', 'r') as instructions:
         with open('main.py', 'w+') as f:
             for line in instructions:
                 if line.split()[0] == 'token':
-                    token = line.strip()[1]
+                    token = token
                 elif line.split()[0] == 'start':
-                    f.write(start)
+                    f.write(get_start(token))
                 elif line.split()[0] == 'start_message':
                     f.write(start_message(line.strip().split('start_message')[1]))
                 elif line.split()[0] == 'text_response':

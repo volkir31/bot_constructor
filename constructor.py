@@ -53,10 +53,20 @@ class Constructor(Tk):
     def __init__(self):
         super().__init__()
         self.geometry('500x500')
+        token = StringVar()
+        self.ent = Entry(self, textvariable=token)
+        Label(text='token').pack()
+        self.ent.pack()
         self.text = Text(self, width=50, height=10)
         self.text.pack()
         Button(self, text='Create bot', command=self.create_bot).pack(side=BOTTOM)
-        Label(text='Response -> request').pack()
+        Button(self, text='Create script', command=self.create_script).pack(side=BOTTOM)
+        Label(text='Firstly create script, \nif you sure everything is ready then click "create bot"',
+              font=("Consolas", 11)).pack(side=BOTTOM)
+        Label(text='Example:\nResponse -> request\ndelete: res -> req', font=("Consolas", 13)).pack()
+        self.label = Label(self, text='Your script will be here')
+        self.label.pack()
+        self.script = ''
 
     def add_new_block(self):
         # for _ in range(2):
@@ -70,20 +80,34 @@ class Constructor(Tk):
         # self.my_list_of_entries[-1].pack()
         Label().pack()
 
-    def create_bot(self):
+    def delete_part(self):
+        string = self.text.get(1.0, END)
+        string = string.split(':')
+        deleted_str = string[1].strip() + '\n'
+        self.script = self.script.replace(deleted_str, '')
+
+    def create_script(self):
         msg = self.text.get(1.0, END)
-        msg_list = msg.split('\n')
+        if 'delete' in msg.lower():
+            self.delete_part()
+            self.label.configure(text=f'Your script:\n\nYour token: {self.ent.get()}\n\n{self.script}')
+        else:
+            self.script += msg
+            self.label.configure(text=f'Your script:\n\nYour token: {self.ent.get()}\n\n{self.script}')
+        print(self.script.split('\n'))
+
+    def create_bot(self):
+        msg_list = self.script.split('\n')
         for msg in msg_list:
             mes = msg.split('->')
             if msg != '':
                 # print(mes)
                 self.res.append(mes[0])
                 self.req.append(mes[1])
-        bot_creating(self.res, self.req)
+        bot_creating(self.res, self.req, self.ent.get())
         print(f'Responses:{self.res}\n Requests{self.req}')
 
 
 if __name__ == '__main__':
     window = Constructor()
-    # Button(window, text="Add new block", command=window.add_new_block).pack()
     mainloop()
