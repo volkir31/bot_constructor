@@ -52,33 +52,34 @@ class Constructor(Tk):
 
     def __init__(self):
         super().__init__()
-        self.geometry('500x500')
+        self.geometry('500x600')
+
+        # filename
+        file_name = StringVar()
+        self.filename = Entry(self, textvariable=file_name)
+        Label(text='File name without ".py"').pack()
+        self.filename.pack()
+
+        # token
         token = StringVar()
         self.ent = Entry(self, textvariable=token)
         Label(text='token').pack()
         self.ent.pack()
+
+        # textfield
         self.text = Text(self, width=50, height=10)
         self.text.pack()
-        Button(self, text='Create bot', command=self.create_bot).pack(side=BOTTOM)
-        Button(self, text='Create script', command=self.create_script).pack(side=BOTTOM)
-        Label(text='Firstly create script, \nif you sure everything is ready then click "create bot"',
-              font=("Consolas", 11)).pack(side=BOTTOM)
-        Label(text='Example:\nResponse -> request\ndelete: res -> req', font=("Consolas", 13)).pack()
+        Label(text='Example:\nResponse -> request\ndelete: res -> req', font=("Consolas", 10)).pack()
+
+        # script
         self.label = Label(self, text='Your script will be here')
         self.label.pack()
         self.script = ''
 
-    def add_new_block(self):
-        # for _ in range(2):
-        request = StringVar()
-        response = StringVar()
-        self.req.append(Entry(self, textvariable=request))
-        self.req[-1].pack()
-        self.res.append(Entry(self, textvariable=response))
-        self.res[-1].pack()
-        # self.my_list_of_entries.append(Entry(self))
-        # self.my_list_of_entries[-1].pack()
-        Label().pack()
+        Button(self, text='Create bot', command=self.create_bot).pack(side=BOTTOM)
+        Button(self, text='Create script', command=self.create_script).pack(side=BOTTOM)
+        Label(text='Firstly create script, \nif you sure everything is ready then click "create bot"',
+              font=("Consolas", 11)).pack(side=BOTTOM)
 
     def delete_part(self):
         string = self.text.get(1.0, END)
@@ -104,7 +105,7 @@ class Constructor(Tk):
                 # print(mes)
                 self.res.append(mes[0])
                 self.req.append(mes[1])
-        bot_creating(self.res, self.req, self.ent.get())
+        bot_creating(self.res, self.req, self.ent.get(), self.filename.get())
         print(f'Responses:{self.res}\n Requests{self.req}')
 
 

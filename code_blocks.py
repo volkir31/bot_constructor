@@ -106,9 +106,9 @@ req = []
 #     for cond in text_res:
 #         conditions += make_conditions(*cond)
 #     f.write(text_response(conditions))
-def bot_creating(res, req, token):
-    with open('instructions.txt', 'r') as instructions:
-        with open('main.py', 'w+') as f:
+def bot_creating(res, req, token, file_name):
+    with open('Instructions Example.txt', 'r') as instructions:
+        with open(file_name+'.py', 'w+') as f:
 
             f.write(onstart)
 
