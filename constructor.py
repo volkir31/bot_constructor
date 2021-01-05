@@ -53,6 +53,7 @@ class Constructor(Tk):
     def __init__(self):
         super().__init__()
         self.geometry('500x600')
+        self.title('Bot Constructor')
 
         # filename
         file_name = StringVar()
