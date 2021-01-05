@@ -13,8 +13,12 @@ def start_message(message):
 @bot.message_handler(content_types=['text'])
 def text_response(message):
     
-    if message.text.upper() == '10'.upper():
-        bot.send_message(message.from_user.id, '1 + 0')
+    if message.text.upper() == ' res'.upper():
+        bot.send_message(message.from_user.id, 'req ')
+    if message.text.upper() == ' hello'.upper():
+        bot.send_message(message.from_user.id, 'hi ')
+    if message.text.upper() == ' hi'.upper():
+        bot.send_message(message.from_user.id, 'hello ')
 
     
 bot.polling(none_stop=True, interval=0)
